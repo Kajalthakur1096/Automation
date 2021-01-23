@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="ug.tests.HomeTest" duration-ms="60543" started-at="2021-01-22T11:13:29Z" finished-at="2021-01-22T11:14:29Z">
+    <groups>
+    </groups>
+    <test name="Command line test" duration-ms="60543" started-at="2021-01-22T11:13:29Z" finished-at="2021-01-22T11:14:29Z">
+      <class name="ug.tests.HomeTest">
+        <test-method status="PASS" signature="setUp()[pri:0, instance:ug.tests.HomeTest@1554909b]" name="setUp" is-config="true" duration-ms="12651" started-at="2021-01-22T16:43:29Z" finished-at="2021-01-22T16:43:41Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method status="PASS" signature="verifyFooterDataScienceLink()[pri:0, instance:ug.tests.HomeTest@1554909b]" name="verifyFooterDataScienceLink" duration-ms="47777" started-at="2021-01-22T16:43:41Z" finished-at="2021-01-22T16:44:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- verifyFooterDataScienceLink -->
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:ug.tests.HomeTest@1554909b]" name="tearDown" is-config="true" duration-ms="90" started-at="2021-01-22T16:44:29Z" finished-at="2021-01-22T16:44:29Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- tearDown -->
+      </class> <!-- ug.tests.HomeTest -->
+    </test> <!-- Command line test -->
+  </suite> <!-- ug.tests.HomeTest -->
+</testng-results>
