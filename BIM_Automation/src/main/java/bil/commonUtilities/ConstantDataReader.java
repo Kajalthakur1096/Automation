@@ -25,8 +25,11 @@ public class ConstantDataReader {
 	private static final String MULTIPLETEACHERREGISTRATION = "MultipleTeacherRegistration";
 	private static final String MULTIPLESTUDENTREGISTRATION = "MultipleStudentRegistration";
 	private static final String MULTIPLEDARREGISTRATION = "MultipleDARegistration";
+	private static final String ADDCLASSNEWUSER = "AddClassForNewUser";
+	private static final String ADDCLASSWITHEXISTINGCLASS = "AddClasswithExistingClasses";
+	private static final String ADDCLASSWHENNOACTIVECLASS = "AddClassWhenNoActiveClass";
 	private static final String FEATURED_COMPONENTS_TEXT = "Featured Components";
-	private static final String RESOURCELIBRARY_TEXT="Resource Library";
+	private static final String RESOURCELIBRARY_TEXT = "Resource Library";
 	private static final String IMAGE_EXTENSION = "imageExtension";
 	private static final String REPORT_PATH = "reportPath";
 	private static final String REPORT_FOLDER_NAME = "reportFolderName";
@@ -190,6 +193,18 @@ public class ConstantDataReader {
 
 	public static String getResourceLibraryText() {
 		return RESOURCELIBRARY_TEXT;
+	}
+
+	public static String getAddClassNewUserSheetName() {
+		return ADDCLASSNEWUSER;
+	}
+
+	public static String getAddClassWithExistingClassSheetName() {
+		return ADDCLASSWITHEXISTINGCLASS;
+	}
+
+	public static String getAddClassWhenNoActiveClassSheetName() {
+		return ADDCLASSWHENNOACTIVECLASS;
 	}
 
 }

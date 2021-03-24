@@ -58,7 +58,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "MRLTeacherLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyMRLTeacherLogin(String username, String password) throws InterruptedException {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		log.info("verifyMRLTeacherLogin: Successfully clicked on Login button");
 		TeacherDashboardPage objectOfTeacherDashboardPage = objectOfLoginPage.teacherDashboardPage();
 		WebDriverWait wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
@@ -77,7 +77,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "OLDTeacherLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyOLDTeacherLogin(String username, String password) {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		log.info("verifyOLDTeacherLogin: Successfully clicked on Login button");
 		OldTeacherDashboardPage objectOfOldTeacherDashboardPage = objectOfLoginPage.oldTeacherDashboardPage();
 		WebDriverWait wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
@@ -96,7 +96,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "InvalidUserDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyInvalidUserLoginError(String username, String password) throws InterruptedException {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		Assert.assertEquals(objectOfLoginPage.getInvalidUserText().getText(), ConstantDataReader.getInvalidUserText());
 		log.info("verifyInvalidUserLoginError: Successfully validated Inavlid user");
 
@@ -109,7 +109,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "Kto5StudentLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyKto5StudentLogin(String username, String password) {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		log.info("verifyKto5StudentLogin: Successfully clicked on Login button");
 		Kto5StudentDashboardPage objectOfKto5StudentDashboardPage = objectOfLoginPage.kto5StudentDashboardPage();
 		Assert.assertTrue(objectOfKto5StudentDashboardPage.getStateSpecificResourcesButton().isDisplayed());
@@ -125,7 +125,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "GreaterThan5StudentLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyGreaterThan5StudentLogin(String username, String password) {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		log.info("verifyGreaterThan5StudentLogin: Successfully clicked on Login button");
 		GreaterThanFiveStudentDashboardPage objectOfGreaterThanFiveStudentDashboardPage = objectOfLoginPage
 				.greaterThanFiveStudentDashboardPage();
@@ -141,7 +141,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "OLDStudentLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyOLDStudentLogin(String username, String password) {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		log.info("verifyOLDStudentLogin: Successfully clicked on Login button");
 		OldStudentDashboardPage objectOfOldStudentDashboardPage = objectOfLoginPage.oldStudentDashboardPage();
 		WebDriverWait wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
@@ -159,7 +159,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "DistrictAdminLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyDistrictAdminLogin(String username, String password) {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		log.info("verifyDistrictAdminLogin: Successfully clicked on Login button");
 		DistrictAdminPage objectOfDistrictAdminPage = objectOfLoginPage.districtAdminPage();
 		Assert.assertTrue(objectOfDistrictAdminPage.getReportsLink().isDisplayed());
@@ -174,7 +174,7 @@ public class LoginTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "SystemAdminLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifySystemAdminLogin(String username, String password) {
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.setLoginDetails(username, password);
+		objectOfLoginPage.LoginUser(username, password);
 		log.info("verifySystemAdminLogin: Successfully clicked on Login button");
 		SystemAdminPage objectOfSystemAdminPage = objectOfLoginPage.systemAdminPage();
 		Assert.assertTrue(objectOfSystemAdminPage.getAddNewDistrictButton().isDisplayed());

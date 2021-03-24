@@ -1,7 +1,7 @@
 package bil.commonUtilities;
 
 public class Utils {
-	
+
 	public static String getRandomNumbers() {
 		int size = 4;
 		StringBuilder sb = new StringBuilder(size);
@@ -12,4 +12,5 @@ public class Utils {
 		}
 		return sb.toString();
 	}
+
 }

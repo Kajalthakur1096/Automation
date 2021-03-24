@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -19,6 +20,7 @@ public class BaseTest {
 	protected WebDriver driver;
 	protected boolean flag;
 	protected WebDriverWait wait;
+	protected JavascriptExecutor executor;
 
 	/*
 	 * This method will initialize any driver selected by user from

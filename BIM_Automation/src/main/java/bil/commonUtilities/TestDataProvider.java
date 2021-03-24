@@ -104,4 +104,25 @@ public class TestDataProvider {
 
 	}
 
+	@DataProvider(name = "AddClassForNewUserDataProvider")
+	public static String[][] AddClassForNewUserData() throws IOException {
+		TestDataReader objectOfTestDataReader = new TestDataReader();
+		return objectOfTestDataReader.getLoginData(ConstantDataReader.getAddClassNewUserSheetName());
+
+	}
+
+	@DataProvider(name = "AddClassWithExistingClassDataProvider")
+	public static String[][] AddClassWithExistingClassData() throws IOException {
+		TestDataReader objectOfTestDataReader = new TestDataReader();
+		return objectOfTestDataReader.getLoginData(ConstantDataReader.getAddClassWithExistingClassSheetName());
+
+	}
+
+	@DataProvider(name = "AddClassWithNoActiveClassDataProvider")
+	public static String[][] AddClassWithNoActiveClassData() throws IOException {
+		TestDataReader objectOfTestDataReader = new TestDataReader();
+		return objectOfTestDataReader.getLoginData(ConstantDataReader.getAddClassWhenNoActiveClassSheetName());
+
+	}
+
 }

@@ -17,5 +17,8 @@
 				</methods>
 			</class>
 		</classes>
+		<classes>
+			<class name="bil.tests.ClassManagementTest" />
+		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -84,7 +84,7 @@ public class LoginPage extends BasePage {
 		return new SystemAdminPage(driver);
 	}
 
-	public void setLoginDetails(String username, String password) {
+	public void LoginUser(String username, String password) {
 		UserCredentials uc = new UserCredentials();
 		uc.setUsername(username);
 		uc.setPassword(password);
