@@ -13,8 +13,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import bil.commonUtilities.ConfigFileReader;
-import bil.commonUtilities.ConstantDataReader;
+import bil.helper.ConfigFileReader;
+import bil.helper.Constants;
 
 public class BaseTest {
 	protected WebDriver driver;
@@ -30,11 +30,11 @@ public class BaseTest {
 
 	public WebDriver initializeDriver() throws IOException {
 		String browserName = ConfigFileReader.INSTANCE.getBrowserName();
-		if (browserName.equals(ConstantDataReader.getChromeBrowser())) {
+		if (browserName.equals(Constants.getChromeBrowser())) {
 			// Code to set chrome driver
 			System.setProperty("webdriver.chrome.driver", ConfigFileReader.INSTANCE.getChromeDriverPath());
 			driver = new ChromeDriver();
-		} else if (browserName.equals(ConstantDataReader.getFirefoxBrowser())) {
+		} else if (browserName.equals(Constants.getFirefoxBrowser())) {
 			// Code to set firefox driver
 			System.setProperty("webdriver.gecko.driver", ConfigFileReader.INSTANCE.getFireFoxDriverPath());
 			driver = new FirefoxDriver();
@@ -54,6 +54,7 @@ public class BaseTest {
 		String destinationFile = ConfigFileReader.INSTANCE.getReportPath()
 				+ ConfigFileReader.INSTANCE.getReportFolderName() + testCaseName
 				+ ConfigFileReader.INSTANCE.getImageExtension();
+		System.out.println(destinationFile);
 		FileUtils.copyFile(screenshotFileSource, new File(destinationFile));
 		return destinationFile;
 

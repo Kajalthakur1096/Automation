@@ -11,11 +11,13 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import bil.commonUtilities.ConfigFileReader;
-import bil.commonUtilities.TestDataProvider;
-import bil.pageObjects.ClassManagement;
-import bil.pageObjects.LoginPage;
-import bil.pageObjects.TeacherDashboardPage;
+import bil.helper.ConfigFileReader;
+import bil.helper.TestDataProvider;
+import bil.model.ClassDetails;
+import bil.model.UserDetails;
+import bil.pages.ClassManagementPage;
+import bil.pages.LoginPage;
+import bil.pages.TeacherDashboardPage;
 
 public class ClassManagementTest extends BaseTest {
 	protected WebDriver driver;
@@ -41,20 +43,25 @@ public class ClassManagementTest extends BaseTest {
 	@Test(enabled = false, dataProvider = "AddClassForNewUserDataProvider", dataProviderClass = TestDataProvider.class)
 	public void shouldCreateNewClassForNewUser(String username, String password, String className, String grade,
 			String fromDate, String toDate, String book) {
+		UserDetails objectOfUserDetails = new UserDetails();
+		objectOfUserDetails.setUsername(username);
+		objectOfUserDetails.setPassword(password);
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.LoginUser(username, password);
+		objectOfLoginPage.LoginUser(objectOfUserDetails);
+		ClassDetails objectOfClassDetails = new ClassDetails();
+		objectOfClassDetails.setClassName(className);
+		objectOfClassDetails.setGrade(grade);
+		objectOfClassDetails.setFromDate(fromDate);
+		objectOfClassDetails.setToDate(toDate);
+		objectOfClassDetails.setBook(book);
 		log.info("ClassManagementTest:Teacher logged in successfully");
-		ClassManagement objectOfClassManagement = new ClassManagement(driver);
+		ClassManagementPage objectOfClassManagement = new ClassManagementPage(driver);
 		if (objectOfClassManagement.getWelcomePopup().isDisplayed()) {
-			objectOfClassManagement.clickGetStartedButton().click();
-			objectOfClassManagement.createNewClass(className, grade, fromDate, toDate, book);
-			objectOfClassManagement.clickGoToDashboardButton().click();
+			objectOfClassManagement.GetStartedButton().click();
+			objectOfClassManagement.createNewClass(objectOfClassDetails);
+			objectOfClassManagement.getGoToDashboardButton().click();
 		}
 		TeacherDashboardPage objectOfTeacherDashboardPage = new TeacherDashboardPage(driver);
-		Assert.assertEquals(objectOfTeacherDashboardPage.getDashboardClassText(), className);
-		// executor = (JavascriptExecutor)driver;
-		// executor.executeScript("arguments[0].click();",
-		// objectOfTeacherDashboardPage.homeButton());
 		Assert.assertEquals(objectOfTeacherDashboardPage.getDashboardClassText(), className);
 		log.info("ClassManagementTest:Class created successfully");
 		objectOfLoginPage.MRLUserLogout();
@@ -67,14 +74,23 @@ public class ClassManagementTest extends BaseTest {
 	@Test(enabled = true, dataProvider = "AddClassWithExistingClassDataProvider", dataProviderClass = TestDataProvider.class)
 	public void shouldCreateNewClassWhenClassExist(String username, String password, String className, String grade,
 			String fromDate, String toDate, String book) throws InterruptedException {
+		UserDetails objectOfUserDetails = new UserDetails();
+		objectOfUserDetails.setUsername(username);
+		objectOfUserDetails.setPassword(password);
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.LoginUser(username, password);
+		objectOfLoginPage.LoginUser(objectOfUserDetails);
+		ClassDetails objectOfClassDetails = new ClassDetails();
+		objectOfClassDetails.setClassName(className);
+		objectOfClassDetails.setGrade(grade);
+		objectOfClassDetails.setFromDate(fromDate);
+		objectOfClassDetails.setToDate(toDate);
+		objectOfClassDetails.setBook(book);
 		log.info("ClassManagementTest:Teacher logged in successfully");
 		TeacherDashboardPage objectOfTeacherDashboardPage = new TeacherDashboardPage(driver);
 		objectOfTeacherDashboardPage.getClassManagementButton().click();
-		ClassManagement objectOfClassManagement = new ClassManagement(driver);
-		objectOfClassManagement.clickAddClassButton().click();
-		objectOfClassManagement.createNewClass(className, grade, fromDate, toDate, book);
+		ClassManagementPage objectOfClassManagement = new ClassManagementPage(driver);
+		objectOfClassManagement.getAddClassButton().click();
+		objectOfClassManagement.createNewClass(objectOfClassDetails);
 		executor = (JavascriptExecutor) driver;
 		executor.executeScript("arguments[0].click();", objectOfTeacherDashboardPage.homeButton());
 		objectOfTeacherDashboardPage.homeButton().click();
@@ -91,13 +107,22 @@ public class ClassManagementTest extends BaseTest {
 	@Test(enabled = false, dataProvider = "AddClassWithNoActiveClassDataProvider", dataProviderClass = TestDataProvider.class)
 	public void shouldCreateNewClassWhenNoActiveClassPresent(String username, String password, String className,
 			String grade, String fromDate, String toDate, String book) throws InterruptedException {
+		UserDetails objectOfUserDetails = new UserDetails();
+		objectOfUserDetails.setUsername(username);
+		objectOfUserDetails.setPassword(password);
 		LoginPage objectOfLoginPage = new LoginPage(driver);
-		objectOfLoginPage.LoginUser(username, password);
+		objectOfLoginPage.LoginUser(objectOfUserDetails);
+		ClassDetails objectOfClassDetails = new ClassDetails();
+		objectOfClassDetails.setClassName(className);
+		objectOfClassDetails.setGrade(grade);
+		objectOfClassDetails.setFromDate(fromDate);
+		objectOfClassDetails.setToDate(toDate);
+		objectOfClassDetails.setBook(book);
 		log.info("ClassManagementTest:Teacher logged in successfully");
-		ClassManagement objectOfClassManagement = new ClassManagement(driver);
+		ClassManagementPage objectOfClassManagement = new ClassManagementPage(driver);
 		if (objectOfClassManagement.getNoActiveClassModal().isDisplayed()) {
-			objectOfClassManagement.clickOkayButton().click();
-			objectOfClassManagement.createNewClass(className, grade, fromDate, toDate, book);
+			objectOfClassManagement.getOkayButton().click();
+			objectOfClassManagement.createNewClass(objectOfClassDetails);
 			log.info("ClassManagementTest:Class created successfully");
 		}
 		TeacherDashboardPage objectOfTeacherDashboardPage = new TeacherDashboardPage(driver);

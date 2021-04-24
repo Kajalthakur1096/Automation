@@ -1,21 +1,22 @@
-package bil.commonUtilities;
+package bil.helper;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections4.map.HashedMap;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class CalendarUtils {
+	private static final String DATE_FORMAT = "dd MMMM yyyy";
 
 	public static List<String> splitDate(String anyDate) {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd MMMM yyyy");
+		SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
 		Date date = DateUtil.getJavaDate(Double.parseDouble(anyDate));
 		String strDate = formatter.format(date);
 		String[] x = strDate.split("\\s+");
@@ -24,18 +25,15 @@ public class CalendarUtils {
 	}
 
 	public static String getDate(String anyDate) {
-		String Date = splitDate(anyDate).get(0);
-		return Date;
+		return splitDate(anyDate).get(0);
 	}
 
 	public static String getMonth(String anyDate) {
-		String Month = splitDate(anyDate).get(1);
-		return Month;
+		return splitDate(anyDate).get(1);
 	}
 
 	public static String getYear(String anyDate) {
-		String Year = splitDate(anyDate).get(2);
-		return Year;
+		return splitDate(anyDate).get(2);
 	}
 
 	public static void clickPrevButton(WebDriver driver, int noOfClicks) {
@@ -103,7 +101,7 @@ public class CalendarUtils {
 		WebElement currentMonth = driver.findElement(By.xpath("//span[contains(@class,'ui-datepicker-month')]"));
 		WebElement currentYear = driver.findElement(By.xpath("//span[contains(@class,'ui-datepicker-year')]"));
 
-		Map<String, Integer> map = new HashedMap<String, Integer>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("January", 1);
 		map.put("February", 2);
 		map.put("March", 3);
