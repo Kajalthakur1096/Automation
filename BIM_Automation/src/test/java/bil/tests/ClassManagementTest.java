@@ -40,7 +40,7 @@ public class ClassManagementTest extends BaseTest {
 	 * This method will Create a new class and verify if the class is created
 	 * for New User or not.
 	 */
-	@Test(enabled = false, dataProvider = "AddClassForNewUserDataProvider", dataProviderClass = TestDataProvider.class)
+	@Test(enabled = true, dataProvider = "AddClassForNewUserDataProvider", dataProviderClass = TestDataProvider.class)
 	public void shouldCreateNewClassForNewUser(String username, String password, String className, String grade,
 			String fromDate, String toDate, String book) {
 		UserDetails objectOfUserDetails = new UserDetails();
@@ -71,7 +71,7 @@ public class ClassManagementTest extends BaseTest {
 	 * This method will Create a new class and verify if the class is created or
 	 * not.
 	 */
-	@Test(enabled = true, dataProvider = "AddClassWithExistingClassDataProvider", dataProviderClass = TestDataProvider.class)
+	@Test(enabled = false, dataProvider = "AddClassWithExistingClassDataProvider", dataProviderClass = TestDataProvider.class)
 	public void shouldCreateNewClassWhenClassExist(String username, String password, String className, String grade,
 			String fromDate, String toDate, String book) throws InterruptedException {
 		UserDetails objectOfUserDetails = new UserDetails();

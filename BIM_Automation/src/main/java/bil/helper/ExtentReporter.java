@@ -3,6 +3,8 @@ package bil.helper;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import bil.constants.TestReportConstants;
+
 public class ExtentReporter {
 
 	public static ExtentReports getReportObject() {
@@ -11,11 +13,11 @@ public class ExtentReporter {
 				+ ConfigFileReader.INSTANCE.getReportFolderName() + ConfigFileReader.INSTANCE.getReportName();
 		ExtentSparkReporter objectOfExtentSparkReporter = new ExtentSparkReporter(pathOfReport);
 
-		objectOfExtentSparkReporter.config().setReportName(Constants.getExtentReportName());
-		objectOfExtentSparkReporter.config().setDocumentTitle(Constants.getDocumentTitle());
+		objectOfExtentSparkReporter.config().setReportName(TestReportConstants.getExtentReportName());
+		objectOfExtentSparkReporter.config().setDocumentTitle(TestReportConstants.getDocumentTitle());
 		objectOfExtentReports = new ExtentReports();
 		objectOfExtentReports.attachReporter(objectOfExtentSparkReporter);
-		objectOfExtentReports.setSystemInfo(Constants.getTesterInfo(), Constants.getTesterName());
+		objectOfExtentReports.setSystemInfo(TestReportConstants.getTesterInfo(), TestReportConstants.getTesterName());
 		return objectOfExtentReports;
 	}
 }

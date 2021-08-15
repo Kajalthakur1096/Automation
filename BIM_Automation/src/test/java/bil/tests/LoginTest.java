@@ -12,8 +12,8 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import bil.constants.AssertConstants;
 import bil.helper.ConfigFileReader;
-import bil.helper.Constants;
 import bil.helper.TestDataProvider;
 import bil.model.UserDetails;
 import bil.pages.DistrictAdminPage;
@@ -34,7 +34,7 @@ public class LoginTest extends BaseTest {
 	 * website.
 	 */
 	@BeforeTest
-	public void setUp() throws IOException {
+	public void setUp() throws IOException{
 		log.info("Login Test:Initializing driver");
 		driver = initializeDriver();
 		log.info("Login Test:driver initialised successfully");
@@ -46,9 +46,9 @@ public class LoginTest extends BaseTest {
 	 * This method will verify whether the launched url is the correct url or
 	 * not.
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void verifyApplicationUrl() {
-		Assert.assertEquals(driver.getCurrentUrl(), Constants.getUrlPath());
+		Assert.assertEquals(driver.getCurrentUrl(), AssertConstants.getUrlPath());
 		log.info("verifyApplicationUrl: Successfully validated the Application Url");
 	}
 
@@ -56,7 +56,7 @@ public class LoginTest extends BaseTest {
 	 * This method will verify that the MRL teacher is successfully logged into
 	 * the website.
 	 */
-	@Test(enabled = true, dataProvider = "MRLTeacherLoginDataProvider", dataProviderClass = TestDataProvider.class)
+	@Test(enabled = false, dataProvider = "MRLTeacherLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyMRLTeacherLogin(String username, String password) throws InterruptedException {
 		UserDetails objectOfUserDetails= new UserDetails();
 		objectOfUserDetails.setUsername(username);
@@ -68,7 +68,7 @@ public class LoginTest extends BaseTest {
 		WebDriverWait wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 		wait.until(ExpectedConditions.visibilityOf(objectOfTeacherDashboardPage.getFeaturedComponentsText()));
 		Assert.assertEquals(objectOfTeacherDashboardPage.getFeaturedComponentsText().getText(),
-				Constants.getFeaturedComponentsText());
+				AssertConstants.getFeaturedComponentsText());
 		log.info("verifyMRLTeacherLogin: Successfully validated Teacher user");
 		objectOfLoginPage.MRLUserLogout();
 
@@ -78,7 +78,7 @@ public class LoginTest extends BaseTest {
 	 * This method will verify that the 2014 teacher is successfully logged into
 	 * the website.
 	 */
-	@Test(enabled = true, dataProvider = "OLDTeacherLoginDataProvider", dataProviderClass = TestDataProvider.class)
+	@Test(enabled = false, dataProvider = "OLDTeacherLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyOLDTeacherLogin(String username, String password) {
 		UserDetails objectOfUserDetails= new UserDetails();
 		objectOfUserDetails.setUsername(username);
@@ -90,7 +90,7 @@ public class LoginTest extends BaseTest {
 		WebDriverWait wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 		wait.until(ExpectedConditions.visibilityOf(objectOfOldTeacherDashboardPage.getDashboardText()));
 		Assert.assertEquals(objectOfOldTeacherDashboardPage.getDashboardText().getText(),
-				Constants.getResourceLibraryText());
+				AssertConstants.getResourceLibraryText());
 		log.info("verifyOLDTeacherLogin: Successfully validated Teacher user");
 		objectOfLoginPage.OldPlatformUserLogout();
 
@@ -107,7 +107,7 @@ public class LoginTest extends BaseTest {
 		objectOfUserDetails.setPassword(password);
 		LoginPage objectOfLoginPage = new LoginPage(driver);
 		objectOfLoginPage.LoginUser(objectOfUserDetails);
-		Assert.assertEquals(objectOfLoginPage.getInvalidUserText().getText(), Constants.getInvalidUserText());
+		Assert.assertEquals(objectOfLoginPage.getInvalidUserText().getText(), AssertConstants.getInvalidUserText());
 		log.info("verifyInvalidUserLoginError: Successfully validated Inavlid user");
 
 	}
@@ -116,6 +116,7 @@ public class LoginTest extends BaseTest {
 	 * This method will verify that the K-5Student is successfully logged into
 	 * the website.
 	 */
+	
 	@Test(enabled = true, dataProvider = "Kto5StudentLoginDataProvider", dataProviderClass = TestDataProvider.class)
 	public void verifyKto5StudentLogin(String username, String password) {
 		UserDetails objectOfUserDetails= new UserDetails();

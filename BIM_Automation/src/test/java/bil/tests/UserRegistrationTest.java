@@ -13,8 +13,9 @@ import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import bil.constants.AssertConstants;
+import bil.constants.Constants;
 import bil.helper.ConfigFileReader;
-import bil.helper.Constants;
 import bil.helper.TestDataProvider;
 import bil.helper.Utils;
 import bil.pages.UserRegistrationPage;
@@ -23,44 +24,6 @@ public class UserRegistrationTest extends BaseTest {
 	protected WebDriver driver;
 
 	public static Logger log = LogManager.getLogger(UserRegistrationTest.class.getName());
-
-	/*
-	 * This method will enter the accesscode inside the accesscode input box.
-	 */
-	private void setAccessCode(String accesscode) {
-		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
-		/*
-		 * I had no choice but to introduce thread here because explicit wait
-		 * was unable to interact with access-code web element.Sad.
-		 */
-		try {
-			Thread.sleep(2000);
-			objectOfUserRegistrationPage.getRegistrationButton().click();
-			objectOfUserRegistrationPage.getAccessCodeButton().sendKeys(accesscode);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		objectOfUserRegistrationPage.getNextButton().click();
-	}
-
-	/*
-	 * This method will validate the accesscode and will return the boolean flag
-	 * if the code entered is either valid or invalid.
-	 */
-	private boolean validateAccessCode(String accesscode) {
-		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
-		setAccessCode(accesscode);
-		try {
-			Thread.sleep(2000);
-			if (objectOfUserRegistrationPage.getAccessCodeErrorText().isDisplayed()) {
-				return false;
-			}
-		} catch (Exception e) {
-			log.info("Accesscode is valid.");
-		}
-		return true;
-	}
 
 	/*
 	 * This method is going to initialize the driver and is going to launch the
@@ -79,13 +42,13 @@ public class UserRegistrationTest extends BaseTest {
 	 * This method will register multiple teacher user only of the accesscode is
 	 * valid.
 	 */
-	@Test(enabled = true, dataProvider = "MultipleTeacherRegistrationDataProvider", dataProviderClass = TestDataProvider.class)
+	@Test(enabled = false, dataProvider = "MultipleTeacherRegistrationDataProvider", dataProviderClass = TestDataProvider.class)
 	public void registerMultipleTeacherUser(String accesscode, String firstname, String lastname, String password,
 			Double usercount) {
-		flag = validateAccessCode(accesscode);
+		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
+		boolean flag = objectOfUserRegistrationPage.validateAccessCode(accesscode);
 		if (flag) {
 			for (int i = 0; i < usercount.intValue(); i++) {
-				UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
 				wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 				wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getTeacherFirstName()));
 				objectOfUserRegistrationPage.getTeacherFirstName().sendKeys((firstname + i));
@@ -102,20 +65,18 @@ public class UserRegistrationTest extends BaseTest {
 				objectOfUserRegistrationPage.getTeacherSchoolCheckbox().click();
 				objectOfUserRegistrationPage.getTeacherSchoolSubmitButton().click();
 				objectOfUserRegistrationPage.getTeacherLoginButton().click();
-				// Assert.assertEquals(driver.getCurrentUrl(),
-				// Constants.getUrlPath());
-				Assert.assertEquals(driver.getCurrentUrl(), Constants.getUrlPath());
+				Assert.assertEquals(driver.getCurrentUrl(), AssertConstants.getUrlPath());
 				log.info("MultipleTeacherRegistration: Teacher registered successfully");
 				if ((i + 1) < usercount.intValue()) {
-					setAccessCode(accesscode);
+					objectOfUserRegistrationPage.setAccessCode(accesscode);
 				} else {
-					driver.get(Constants.getUrlPath());
+					driver.get(AssertConstants.getUrlPath());
 				}
 
 			}
 		} else {
 			log.error("MultipleTeacherRegistration: Accesscode Invalid");
-			driver.get(Constants.getUrlPath());
+			driver.get(AssertConstants.getUrlPath());
 
 		}
 
@@ -128,10 +89,10 @@ public class UserRegistrationTest extends BaseTest {
 	@Test(enabled = false, dataProvider = "MultipleStudentRegistrationDataProvider", dataProviderClass = TestDataProvider.class)
 	public void registerMultipleStudentUser(String accesscode, String firstname, String lastname, String password,
 			Double usercount) throws InterruptedException {
-		flag = validateAccessCode(accesscode);
+		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
+		boolean flag = objectOfUserRegistrationPage.validateAccessCode(accesscode);
 		if (flag) {
 			for (int i = 0; i < usercount.intValue(); i++) {
-				UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
 				wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 				wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getStudentFirstName()));
 				objectOfUserRegistrationPage.getStudentFirstName().sendKeys(firstname + i);
@@ -144,17 +105,17 @@ public class UserRegistrationTest extends BaseTest {
 				wait.until(
 						ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getStudentLoginButton()));
 				objectOfUserRegistrationPage.getStudentLoginButton().click();
-				Assert.assertEquals(driver.getCurrentUrl(), Constants.getUrlPath());
+				Assert.assertEquals(driver.getCurrentUrl(), AssertConstants.getUrlPath());
 				log.info("MultipleStudentRegistration: Student registered successfully");
 				if ((i + 1) < usercount.intValue()) {
-					setAccessCode(accesscode);
+					objectOfUserRegistrationPage.setAccessCode(accesscode);
 				} else {
-					driver.get(Constants.getUrlPath());
+					driver.get(AssertConstants.getUrlPath());
 				}
 			}
 		} else {
 			log.error("MultipleStudentRegistration: Accesscode Invalid");
-			driver.get(Constants.getUrlPath());
+			driver.get(AssertConstants.getUrlPath());
 
 		}
 	}
@@ -166,10 +127,10 @@ public class UserRegistrationTest extends BaseTest {
 	@Test(enabled = false, dataProvider = "MultipleDARegistrationDataProvider", dataProviderClass = TestDataProvider.class)
 	public void registerMultipleDAUser(String accesscode, String firstname, String lastname, String password,
 			Double usercount) {
-		flag = validateAccessCode(accesscode);
+		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
+		boolean flag = objectOfUserRegistrationPage.validateAccessCode(accesscode);
 		if (flag) {
 			for (int i = 0; i < usercount.intValue(); i++) {
-				UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
 				wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 				wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getDAFirstName()));
 				objectOfUserRegistrationPage.getDAFirstName().sendKeys((firstname + i));
@@ -183,18 +144,18 @@ public class UserRegistrationTest extends BaseTest {
 				objectOfUserRegistrationPage.getDASubmitButton().click();
 				wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getDALoginButton()));
 				objectOfUserRegistrationPage.getDALoginButton().click();
-				Assert.assertEquals(driver.getCurrentUrl(), Constants.getUrlPath());
+				Assert.assertEquals(driver.getCurrentUrl(), AssertConstants.getUrlPath());
 				log.info("MultipleDARegistration: DA registered successfully");
 				if ((i + 1) < usercount.intValue()) {
-					setAccessCode(accesscode);
+					objectOfUserRegistrationPage.setAccessCode(accesscode);
 				} else {
-					driver.get(Constants.getUrlPath());
+					driver.get(AssertConstants.getUrlPath());
 				}
 
 			}
 		} else {
 			log.error("MultipleDARegistration: Accesscode Invalid");
-			driver.get(Constants.getUrlPath());
+			driver.get(AssertConstants.getUrlPath());
 
 		}
 	}
@@ -203,12 +164,12 @@ public class UserRegistrationTest extends BaseTest {
 	 * This method will register number of teacher users from excel only if the
 	 * accesscode is valid.
 	 */
-	@Test(enabled = true, dataProvider = "TeacherRegistrationDataProvider", dataProviderClass = TestDataProvider.class)
+	@Test(enabled = false, dataProvider = "TeacherRegistrationDataProvider", dataProviderClass = TestDataProvider.class)
 	public void registerTeacherUser(String accesscode, String firstname, String lastname, String email,
 			String password) {
-		flag = validateAccessCode(accesscode);
+		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
+		boolean flag = objectOfUserRegistrationPage.validateAccessCode(accesscode);
 		if (flag) {
-			UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
 			wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 			wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getTeacherFirstName()));
 			objectOfUserRegistrationPage.getTeacherFirstName().sendKeys(firstname);
@@ -223,11 +184,11 @@ public class UserRegistrationTest extends BaseTest {
 			objectOfUserRegistrationPage.getTeacherSchoolCheckbox().click();
 			objectOfUserRegistrationPage.getTeacherSchoolSubmitButton().click();
 			objectOfUserRegistrationPage.getTeacherLoginButton().click();
-			Assert.assertEquals(driver.getCurrentUrl(), Constants.getUrlPath());
+			Assert.assertEquals(driver.getCurrentUrl(), AssertConstants.getUrlPath());
 			log.info("registerTeacherUser: Teacher registered successfully");
 		} else {
 			log.error("registerTeacherUser: Accesscode Invalid");
-			driver.get(Constants.getUrlPath());
+			driver.get(AssertConstants.getUrlPath());
 
 		}
 	}
@@ -239,10 +200,10 @@ public class UserRegistrationTest extends BaseTest {
 	@Test(enabled = false, dataProvider = "StudentRegistrationDataProvider", dataProviderClass = TestDataProvider.class)
 	public void registerStudentUser(String accesscode, String firstname, String lastname, String password,
 			String studentId) {
-		flag = validateAccessCode(accesscode);
+		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
+		boolean flag = objectOfUserRegistrationPage.validateAccessCode(accesscode);
 		if (flag) {
 			driver.manage().timeouts().implicitlyWait(ConfigFileReader.INSTANCE.getImplicitlyWait(), TimeUnit.SECONDS);
-			UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
 			wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 			wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getStudentFirstName()));
 			objectOfUserRegistrationPage.getStudentFirstName().sendKeys(firstname);
@@ -253,11 +214,11 @@ public class UserRegistrationTest extends BaseTest {
 			objectOfUserRegistrationPage.getStudentSubmitButton().click();
 			wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getStudentLoginButton()));
 			objectOfUserRegistrationPage.getStudentLoginButton().click();
-			Assert.assertEquals(driver.getCurrentUrl(), Constants.getUrlPath());
+			Assert.assertEquals(driver.getCurrentUrl(), AssertConstants.getUrlPath());
 			log.info("registerStudentUser: Student registered successfully");
 		} else {
 			log.error("registerStudentUser: Accesscode Invalid");
-			driver.get(Constants.getUrlPath());
+			driver.get(AssertConstants.getUrlPath());
 
 		}
 	}
@@ -266,11 +227,11 @@ public class UserRegistrationTest extends BaseTest {
 	 * This method will register number of DistrictAdmin users from excel only
 	 * if the accesscode is valid.
 	 */
-	@Test(enabled = false, dataProvider = "DARegistrationDataProvider", dataProviderClass = TestDataProvider.class)
+	@Test(enabled = true, dataProvider = "DARegistrationDataProvider", dataProviderClass = TestDataProvider.class)
 	public void registerDAUser(String accesscode, String firstname, String lastname, String email, String password) {
-		flag = validateAccessCode(accesscode);
+		UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
+		boolean flag = objectOfUserRegistrationPage.validateAccessCode(accesscode);
 		if (flag) {
-			UserRegistrationPage objectOfUserRegistrationPage = new UserRegistrationPage(driver);
 			wait = new WebDriverWait(driver, ConfigFileReader.INSTANCE.getExplicitlyWait());
 			wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getDAFirstName()));
 			objectOfUserRegistrationPage.getDAFirstName().sendKeys(firstname);
@@ -282,11 +243,11 @@ public class UserRegistrationTest extends BaseTest {
 			objectOfUserRegistrationPage.getDASubmitButton().click();
 			wait.until(ExpectedConditions.elementToBeClickable(objectOfUserRegistrationPage.getDALoginButton()));
 			objectOfUserRegistrationPage.getDALoginButton().click();
-			Assert.assertEquals(driver.getCurrentUrl(), Constants.getUrlPath());
+			Assert.assertEquals(driver.getCurrentUrl(), AssertConstants.getUrlPath());
 			log.info("registerDAUser: DA registered successfully");
 		} else {
 			log.error("registerDAUser: Accesscode Invalid");
-			driver.get(Constants.getUrlPath());
+			driver.get(AssertConstants.getUrlPath());
 		}
 	}
 

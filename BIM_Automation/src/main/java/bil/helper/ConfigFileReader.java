@@ -5,6 +5,8 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import bil.constants.ConfigConstants;
+
 public enum ConfigFileReader {
 	INSTANCE;
 	Properties prop;
@@ -19,7 +21,7 @@ public enum ConfigFileReader {
 	}
 
 	public String getBrowserName() {
-		String browserName = prop.getProperty(Constants.getBrowser());
+		String browserName = prop.getProperty(ConfigConstants.getBrowser());
 		if (browserName != null)
 			return browserName;
 		else
@@ -27,39 +29,24 @@ public enum ConfigFileReader {
 	}
 
 	public long getImplicitlyWait() {
-		String implicitlyWait = prop.getProperty(Constants.getImplicitlyWait());
+		String implicitlyWait = prop.getProperty(ConfigConstants.getImplicitlyWait());
 		if (implicitlyWait != null)
 			return Long.parseLong(implicitlyWait);
 		else
 			throw new RuntimeException("implicitlyWait not specified in the config.properties file.");
 	}
 
-	public String getApplicationUrl() {
-		String url = prop.getProperty(Constants.getUrl());
+	public String getApplicationUrl(){
+		String url = prop.getProperty(ConfigConstants.getUrl());
 		if (url != null)
 			return url;
 		else
 			throw new RuntimeException("Url not specified in the config.properties file.");
 	}
 
-	public String getChromeDriverPath() {
-		String chromeDriverPath = prop.getProperty(Constants.getChromeDriverPath());
-		if (chromeDriverPath != null)
-			return chromeDriverPath;
-		else
-			throw new RuntimeException("chromeDriverPath not specified in the config.properties file.");
-	}
-
-	public String getFireFoxDriverPath() {
-		String firefoxDriverPath = prop.getProperty(Constants.getFirefoxDriverPath());
-		if (firefoxDriverPath != null)
-			return firefoxDriverPath;
-		else
-			throw new RuntimeException("firefoxDriverPath not specified in the config.properties file.");
-	}
 
 	public String getExcelTestDataPath() {
-		String ExcelTestDataPath = prop.getProperty(Constants.getExcelPathReader());
+		String ExcelTestDataPath = prop.getProperty(ConfigConstants.getExcelPathReader());
 		if (ExcelTestDataPath != null)
 			return ExcelTestDataPath;
 		else
@@ -67,7 +54,7 @@ public enum ConfigFileReader {
 	}
 
 	public long getExplicitlyWait() {
-		String explicitlyWait = prop.getProperty(Constants.getImplicitlyWait());
+		String explicitlyWait = prop.getProperty(ConfigConstants.getImplicitlyWait());
 		if (explicitlyWait != null)
 			return Long.parseLong(explicitlyWait);
 		else
@@ -75,7 +62,7 @@ public enum ConfigFileReader {
 	}
 
 	public String getImageExtension() {
-		String imageExtension = prop.getProperty(Constants.getImageExtension());
+		String imageExtension = prop.getProperty(ConfigConstants.getImageExtension());
 		if (imageExtension != null)
 			return imageExtension;
 		else
@@ -83,7 +70,7 @@ public enum ConfigFileReader {
 	}
 
 	public String getReportPath() {
-		String reportPath = prop.getProperty(Constants.getReportPath());
+		String reportPath = prop.getProperty(ConfigConstants.getReportPath());
 		if (reportPath != null)
 			return reportPath;
 		else
@@ -92,7 +79,7 @@ public enum ConfigFileReader {
 	}
 
 	public String getReportFolderName() {
-		String reportFolderName = prop.getProperty(Constants.getReportFolderName());
+		String reportFolderName = prop.getProperty(ConfigConstants.getReportFolderName());
 		if (reportFolderName != null)
 			return reportFolderName;
 		else
@@ -101,7 +88,7 @@ public enum ConfigFileReader {
 	}
 
 	public String getReportName() {
-		String reportName = prop.getProperty(Constants.getReportName());
+		String reportName = prop.getProperty(ConfigConstants.getReportName());
 		if (reportName != null)
 			return reportName;
 		else

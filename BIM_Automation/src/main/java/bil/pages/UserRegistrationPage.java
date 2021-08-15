@@ -5,10 +5,18 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class UserRegistrationPage extends BasePage {
-	private By registrationButton = By.cssSelector("div.login-tabs>button:nth-child(2)");
+	// private By registrationButton =
+	// By.cssSelector("div.login-tabs>button:nth-child(2)");
+	private By registrationButton = By.xpath("//button[contains(text(), 'Register')]"); // newBTS-UI
+
 	private By accessCode = By.cssSelector("#access-code-input");
-	private By nextButton = By.xpath("//button[text()='NEXT']");
-	private By errorMessage = By.cssSelector(".access-code-error");
+
+	// private By nextButton = By.xpath("//button[text()='Next']");
+	private By nextButton = By.xpath("//span[text()='Next']"); // newBTS-UI
+
+	// private By errorMessage = By.cssSelector(".access-code-error");
+	private By errorMessage = By.xpath("//div[text()='That code was not found.']");// newBTS-UI
+
 	private By teacherFirstName = By.cssSelector("#teacher-first-name");
 	private By teacherLastName = By.cssSelector("#teacher-last-name");
 	private By teacherEmail = By.cssSelector("#teacher-email");
@@ -165,6 +173,42 @@ public class UserRegistrationPage extends BasePage {
 
 	public WebElement getDALoginButton() {
 		return driver.findElement(DALoginButton);
+	}
+
+	/*
+	 * This method will enter the accesscode inside the accesscode input box.
+	 */
+	public void setAccessCode(String accesscode) {
+		/*
+		 * I had no choice but to introduce thread here because explicit wait
+		 * was unable to interact with access-code web element.Sad.
+		 */
+		try {
+			Thread.sleep(2000);
+			getRegistrationButton().click();
+			getAccessCodeButton().sendKeys(accesscode);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		getNextButton().click();
+	}
+
+	/*
+	 * This method will validate the accesscode and will return the boolean flag
+	 * if the code entered is either valid or invalid.
+	 */
+	public boolean validateAccessCode(String accesscode) {
+		setAccessCode(accesscode);
+		try {
+			Thread.sleep(2000);
+			if (getAccessCodeErrorText().isDisplayed()) {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return true;
 	}
 
 }

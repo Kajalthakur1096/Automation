@@ -13,12 +13,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import bil.constants.ConfigConstants;
 import bil.helper.ConfigFileReader;
-import bil.helper.Constants;
+import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
 	protected WebDriver driver;
-	protected boolean flag;
 	protected WebDriverWait wait;
 	protected JavascriptExecutor executor;
 
@@ -30,13 +30,13 @@ public class BaseTest {
 
 	public WebDriver initializeDriver() throws IOException {
 		String browserName = ConfigFileReader.INSTANCE.getBrowserName();
-		if (browserName.equals(Constants.getChromeBrowser())) {
+		if (browserName.equals(ConfigConstants.getChromeBrowser())) {
 			// Code to set chrome driver
-			System.setProperty("webdriver.chrome.driver", ConfigFileReader.INSTANCE.getChromeDriverPath());
+			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
-		} else if (browserName.equals(Constants.getFirefoxBrowser())) {
+		} else if (browserName.equals(ConfigConstants.getFirefoxBrowser())) {
 			// Code to set firefox driver
-			System.setProperty("webdriver.gecko.driver", ConfigFileReader.INSTANCE.getFireFoxDriverPath());
+			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 		}
 
@@ -54,7 +54,6 @@ public class BaseTest {
 		String destinationFile = ConfigFileReader.INSTANCE.getReportPath()
 				+ ConfigFileReader.INSTANCE.getReportFolderName() + testCaseName
 				+ ConfigFileReader.INSTANCE.getImageExtension();
-		System.out.println(destinationFile);
 		FileUtils.copyFile(screenshotFileSource, new File(destinationFile));
 		return destinationFile;
 

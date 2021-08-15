@@ -38,6 +38,11 @@
 	</build>
 
 	<dependencies>
+		<dependency><!-- This is a WebDriverManager dependency -->
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+			<version>3.7.1</version>
+		</dependency>
 		<dependency><!-- This is a selenium dependency -->
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-java</artifactId>

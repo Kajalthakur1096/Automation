@@ -13,7 +13,7 @@ public class LoginPage extends BasePage {
 	private By mrlLogout = By.xpath("//*[@id='Logout']/div");
 	private By oldMenu = By.cssSelector("#fullName");
 	private By oldLogout = By.cssSelector("[href*='logout']");
-	private By checkInvalidUserText = By.cssSelector("div.error");
+	private By checkInvalidUserText = By.cssSelector("div.login-error");
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;

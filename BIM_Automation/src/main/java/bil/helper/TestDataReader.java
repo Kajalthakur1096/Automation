@@ -11,7 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class TestDataReader {
-	public XSSFSheet getExcelSheetAccess(String sheetName) throws IOException {
+	private XSSFSheet getExcelSheetAccess(String sheetName) throws IOException {
 		FileInputStream objectOfFileInputStream = null;
 		XSSFWorkbook workbook = null;
 		XSSFSheet sheet = null;
@@ -42,7 +42,6 @@ public class TestDataReader {
 			Row row1 = sheet.getRow(0);
 			int columnCount = row1.getLastCellNum();
 			cred = new Object[rowCount][columnCount];
-			System.out.println(rowCount + "--" + columnCount);
 			for (int i = 0; i < rowCount; i++) {
 				Row row = sheet.getRow(i + 1);
 				for (int j = 0; j < columnCount; j++) {
